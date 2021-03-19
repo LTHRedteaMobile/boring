@@ -1,10 +1,10 @@
-package com.microservice.toy;
+package com.microserice.db;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ToyApplicationTests {
+class DbApplicationTests {
 
     @Test
     void contextLoads() {

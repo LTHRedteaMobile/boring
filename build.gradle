@@ -1,12 +1,10 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.4'
+    id 'org.springframework.boot' version '2.2.12.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group = 'com.microservice'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 configurations {
     compileOnly {
@@ -14,18 +12,41 @@ configurations {
     }
 }
 
-repositories {
-    mavenCentral()
+subprojects {
+    apply plugin:'java'
+    apply plugin:'idea'
+    //使用springboot插件
+    apply plugin:'org.springframework.boot'
+    //版本管理插件
+    apply plugin:'io.spring.dependency-management'
+    // JVM 版本号要求
+    sourceCompatibility =1.8
+    targetCompatibility =1.8
+    //软件版本号
+    version = '0.0.1-SNAPSHOT'
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava,compileTestJava,javadoc]*.options*.encoding ='UTF-8'
+    // 默认不需要打可执行jar包
+    bootJar {
+        enabled =false
+    }
+
+    // 配置所有子模块的依赖仓库地址
+    repositories {
+        mavenCentral()
+    }
+
+    //所有子模块共有依赖
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
 
-test {
-    useJUnitPlatform()
-}
+
+
