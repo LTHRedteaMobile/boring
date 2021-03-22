@@ -1,6 +1,5 @@
 plugins {
     id 'org.springframework.boot' version '2.2.12.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
@@ -15,17 +14,23 @@ configurations {
 subprojects {
     apply plugin:'java'
     apply plugin:'idea'
+
     //使用springboot插件
     apply plugin:'org.springframework.boot'
+
     //版本管理插件
     apply plugin:'io.spring.dependency-management'
+
     // JVM 版本号要求
     sourceCompatibility =1.8
     targetCompatibility =1.8
+
     //软件版本号
     version = '0.0.1-SNAPSHOT'
+
     // java编译的时候缺省状态下会因为中文字符而失败
     [compileJava,compileTestJava,javadoc]*.options*.encoding ='UTF-8'
+
     // 默认不需要打可执行jar包
     bootJar {
         enabled =false
@@ -42,6 +47,7 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok'
     }
 
+    //单元测试平台
     test {
         useJUnitPlatform()
     }
