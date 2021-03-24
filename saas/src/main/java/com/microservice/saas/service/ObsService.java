@@ -41,20 +41,6 @@ public class ObsService implements StorageService {
     public void init() throws Exception {
         obsClient = new ObsClient(accessKey,secretKey,endPoint);
         urlPrefix = endPoint.replace("obs", obsBucketName + ".obs").concat(":443/");
- /*       System.out.println(urlPrefix);
-        uploadFile("test2", new File("/Users/redtea 1/Desktop/sec.asc"));
-        InputStream input = downloadInputStream( null,"test/lth-test-file", 20L, 50L);
-        byte[] b = new byte[1024];
-        File file = new File("sec.asc");
-        file.createNewFile();
-        FileOutputStream bos = new FileOutputStream(file);
-        int len;
-        while ((len=input.read(b)) != -1){
-            bos.write(b, 0, len);
-        }
-
-        bos.close();
-        input.close();*/
     }
 
     @Override

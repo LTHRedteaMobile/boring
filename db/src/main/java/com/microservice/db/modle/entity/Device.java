@@ -1,5 +1,4 @@
-/*
-package com.microserice.db.modle.entity;
+package com.microservice.db.modle.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,14 +16,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-*/
+
 /**
  * @author Alex Liu
  * @date 2021/03/19
- *//*
+ */
 
 @Entity
-@Table(name = "cupid_device")
+@Table(name = "toy_device")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder
@@ -42,4 +41,3 @@ public class Device {
     @LastModifiedDate
     private Date updateDate;
 }
-*/
