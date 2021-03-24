@@ -1,4 +1,4 @@
-package com.microserice.db.service;
+package com.microservice.saas.service;
 
 import com.google.common.base.Strings;
 import com.obs.services.ObsClient;
@@ -8,7 +8,6 @@ import com.obs.services.model.PutObjectResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

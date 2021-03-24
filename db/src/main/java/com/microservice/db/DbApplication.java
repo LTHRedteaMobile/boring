@@ -1,7 +1,5 @@
-package com.microserice.db;
+package com.microservice.db;
 
-import com.microserice.db.service.ObsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

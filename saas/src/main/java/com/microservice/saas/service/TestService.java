@@ -1,4 +1,4 @@
-package com.microserice.db.service;
+package com.microservice.saas.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.microserice.db;
+package com.microservice.db;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.microserice.db.service;
+package com.microservice.saas.service;
 
 /**
  * @author Alex Liu
