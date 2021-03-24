@@ -2,3 +2,4 @@ rootProject.name = 'toy'
 
 include 'db'
 include 'saas'
+include 'core'
