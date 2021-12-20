@@ -6,6 +6,7 @@ import com.obs.services.model.GetObjectRequest;
 import com.obs.services.model.ObsObject;
 import com.obs.services.model.PutObjectResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.InputStream;
+import java.sql.SQLOutput;
 
 /**
  * @author Alex Liu
@@ -22,6 +24,9 @@ import java.io.InputStream;
 @Slf4j
 @Conditional(ObsServiceCondition.class)
 public class ObsService implements StorageService {
+
+    @Autowired
+    private AbstractTestService abstractTestService;
 
     @Value("${obs.bucket.name}")
     private String obsBucketName;
@@ -39,8 +44,15 @@ public class ObsService implements StorageService {
 
     @PostConstruct
     public void init() throws Exception {
-        obsClient = new ObsClient(accessKey,secretKey,endPoint);
+       /* obsClient = new ObsClient(accessKey,secretKey,endPoint);
         urlPrefix = endPoint.replace("obs", obsBucketName + ".obs").concat(":443/");
+        File file = new File("sec.asc");
+        uploadFile("importDevice/20210513/ttt", file);
+        GetObjectRequest getObjectRequest = new GetObjectRequest(obsBucketName, *//*defaultDirPath.concat("/").concat("importDevice/20210513/DeviceImportEUICC_20210513094344.csv")*//*"redteaready/importDevice/20210514/DeviceImportEUICC_20210514025337.csv");
+        ObsObject obsObject = obsClient.getObject(getObjectRequest);
+        System.out.println(obsObject);*/
+        abstractTestService.print();
+
     }
 
     @Override

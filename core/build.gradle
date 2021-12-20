@@ -15,8 +15,19 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+    //web启动器
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    //nacos服务发现
+    //implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2.2.3.RELEASE'
+    //nacos注册中心
+    //implementation group: 'com.alibaba.cloud', name: 'spring-cloud-alibaba-dependencies', version: '2.2.3.RELEASE', ext: 'pom'
+    //implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: '2.2.3.RELEASE'
+    //actuator
+    //implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // sentinel
+    //implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-sentinel', version: '2.2.4.RELEASE'
+    //implementation group: 'com.alibaba.csp', name: 'sentinel-transport-simple-http', version: '1.8.0'
+    //implementation group: 'com.alibaba.csp', name: 'sentinel-datasource-nacos', version: '1.8.0'
 }
 
 test {
