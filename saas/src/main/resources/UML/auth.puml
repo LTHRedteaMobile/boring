@@ -1,0 +1,59 @@
+@startuml
+hide footbox
+skinparam sequenceMessageAlign center
+skinparam sequenceArrowFontSize 11
+skinparam noteFontSize 11
+skinparam monochrome true
+skinparam lifelinestrategy solid
+participant "<b>SM-DP+" as DP
+participant "<b>LPAd" as LPA
+participant "<b>eUICC" as E
+LPA -> E : [1a] [ES10b.GetEUICCInfo]
+E --> LPA : [1b] [euiccInfo1]
+LPA -> E : [2] ES10b.GetEUICCChallenge
+rnote over E #FFFFFF : [3] Generate euiccChallenge
+E --> LPA : [4] eUICCChallenge
+rnote over DP, LPA #FFFFFF : [5] Establish HTTPS connection
+LPA -> DP : [6] ES9+.InitiateAuthentication (eUICCChallenge, euiccInfo1, SM-Address)
+rnote over DP #FFFFFF
+[7]
+- [Check SM-DP+ Address] - Check euiccInfo1
+Endrnote
+DP --> LPA : [error]
+rnote over DP #FFFFFF
+[8]
+- Generate TransactionID
+- Generate serverChallenge
+- Build serverSigned1 = {TransactionID, euiccChallenge,
+serverChallenge, SM-DP+ Address}
+- Compute serverSignature1 over serverSigned1
+endrnote
+DP --> LPA : [9] TransactionID, serverSigned1,serverSignature1,euiccCiPKIdToBeUsed, CERT.DPauth.ECDSA
+rnote over LPA #FFFFFF
+[10]
+[Perform contextual operation]
+Check SM-DP+ Address
+Generate ctxParams1
+endrnote
+LPA -> E : [11] ES10b.AuthenticateServer(serverSigned1, serverSignature1,euiccCiPKIdToBeUsed, CERT.DPauth.ECDSA, ctxParams1)
+rnote over E #FFFFFF
+[12] - Verify CERT.DPauth.ECDSA
+- Verify serverSignature1 over serverSigned1
+- Verify serverSigned1
+endrnote
+E --> LPA : [error]
+rnote over E #FFFFFF
+[13] - Generate euiccSigned1 = {TransactionID, serverChallenge,
+euiccInfo2, ctxParams1} - Compute euiccSignature1 over euiccSigned1
+endrnote
+E --> LPA : [14] euiccSigned1, euiccSignature1 CERT.EUICC.ECDSA, CERT.EUM.ECDSA
+LPA -> DP : [15] ES9+.AuthenticateClient  (euiccSigned1, euiccSignature1,CERT.EUICC.ECDSA, CERT.EUM.ECDSA)
+rnote over DP #FFFFFF
+[16] - Verify CERT.EUM.ECDSA
+- Verify CERT.EUICC.ECDSA
+- Verify euiccSignature1 over euiccSigned1
+- Verify euiccSigned1
+endrnote
+DP --> LPA : [error]
+rnote over DP, E #FFFFFF : [17] Continue...
+@enduml

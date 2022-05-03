@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author Alex Liu
  * @date 2021/12/20
@@ -14,6 +16,11 @@ import org.springframework.core.annotation.Order;
 @Configuration
 @Slf4j
 public class NotificationSender {
+
+    @PostConstruct
+    private void init() {
+
+    }
 
     @EventListener(NotifyEvent.class)
     //@Async

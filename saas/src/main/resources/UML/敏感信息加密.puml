@@ -1,0 +1,65 @@
+@startuml
+hide footbox
+skinparam sequenceMessageAlign center
+skinparam sequenceArrowFontSize 11
+skinparam noteFontSize 11
+skinparam monochrome true
+skinparam lifelinestrategy solid
+
+participant "<b>MNO" as MNO
+participant "<b>SM-DP+" as DP
+participant "<b>DATABASE" as DB
+participant "<b>HSM" as HSM
+
+
+MNO -> DP : [1] Apply to create account offline
+
+rnote over HSM #FFFFFF
+[2] Key ceremony for MNO and generate KEK(key encrypted key)
+endrnote
+
+DP -> HSM : [3] Create date storage key for MNO
+HSM --> DP : [4] Return storage key name
+DP -> DB : [5]  Save MNO Account info and storage key name
+DB --> DP : [6] Save succeed
+
+rnote over MNO #FFFFFF
+[7]
+generate AES key(key1) to protect date
+generate profile metadata(imsi, ki, opc ...)
+generate protected metadata(encrypt metadata by key1)
+generate eKey1(encrypted key1 by KEK Pub)
+endrnote
+
+MNO -> DP : [8] eKey1, protected metadata
+DP -> HSM : [9] eKey1
+
+rnote over HSM #FFFFFF
+[10]
+decrypt eKey1 by KEK pri
+endrnote
+
+HSM --> DP : [11] return Key1
+
+rnote over DP #FFFFFF
+[12]
+decrypt protected metadata by Key1
+generate profile by metadata
+endrnote
+
+DP -> DB : [13] get storage key name
+DB --> DP : [14] storage key name
+
+DB -> HSM : [15] storage key name and profile
+rnote over HSM #FFFFFF
+[16]
+encrypt profile with storage key
+endrnote
+
+HSM -> DP : [17] encrypted profile
+DP -> DB : [18] save encrypted profile
+DB --> DP : [19] Save succeed
+DP --> MNO : [20] Import profile succeed
+
+
+@enduml

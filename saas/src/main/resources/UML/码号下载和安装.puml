@@ -1,0 +1,49 @@
+@startuml
+hide footbox
+skinparam sequenceMessageAlign center
+skinparam sequenceArrowFontSize 11
+skinparam noteFontSize 11
+skinparam monochrome true
+skinparam lifelinestrategy solid
+participant "<b>Operator" as OP
+participant "<b>SM-DP+" as DP
+participant "<b>LPAd" as LPA
+participant "<b>eUICC" as E
+rnote over LPA #FFFFFF : [1] (a) Get SM-DP+ Address, Parse Activation Code Token,[SM-DP+ OID] from AC, or\n (b) Get SM-DP+ Address and EventID from SM-DS, or(c) Get Default SM-DP+ Address from eUICC
+rnote over DP, E #FFFFFF : [2] [Refer to Common mutual authentication proceduresection 3.1.2]
+rnote over DP #FFFFFF
+[3] - Look for Profile download pending order
+- Eligibility Check using Device Info, euiccInfo2
+endrnote
+Group Opt.
+DP -> OP : [4] ES2+.HandleDownloadProgressInfo(...)
+OP --> DP : OK
+end
+DP --> LPA : [error]
+rnote over DP #FFFFFF
+[5] - Build Profile Metadata
+- Check if download retry
+- Build smdpSigned2 = {TransactionID,
+Confirmation Code Required Flag, [bppEuiccOtpk]} - Compute smdpSignature2 over smdpSigned2 and euiccSignature1
+endrnote
+DP -> LPA : [6] TransactionID, Profile Metadata, smdpSigned2, smdpSignature2,CERT.DPpb.ECDSA
+rnote over LPA #FFFFFF
+[7a] Check if ProfileMetadata contains PPR(s)
+endrnote
+LPA -> E : [7b] [ES10b.GetRAT]
+E --> LPA : [RAT]
+LPA -> E : [7c] [ES10b.GetProfilesInfo]
+E --> LPA : [ProfileInfoListOk]
+rnote over LPA #FFFFFF
+[8]
+- [Check if PPR(s) is/are allowed against RAT.
+Refer to section 2.9.2.3] - [User Consent]
+- [User Confirmation]
+- [Prompt the End User to input Confirmation Code]
+Endrnote
+alt Download rejection
+rnote over DP, E #FFFFFF : [Refer to Sub-procedure Profile Download andinstallation – Download rejection]
+else Download confirmation
+rnote over DP, E #FFFFFF : [Refer to Sub-procedure Profile Download andinstallation – Download confirmation]
+end
+@enduml
