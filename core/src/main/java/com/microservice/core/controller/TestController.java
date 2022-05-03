@@ -1,10 +1,9 @@
 package com.microservice.core.controller;
 
-import com.microservice.core.pulisher.EventPublisher;
+import com.microservice.core.client.AuthClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,24 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021/03/24
  */
 @RestController
-@RequestMapping("/test")
-//@RefreshScope
+@RequestMapping("/api/v1/core/test")
 public class TestController {
 
     @Autowired
-    private EventPublisher eventPublisher;
+    private AuthClient authClient;
 
-    @PostMapping("/publishDownload")
-    public ResponseEntity publishDownload() {
-        eventPublisher.publishDownloadEvent("EID1", "ICCID1");
-        return ResponseEntity.ok().build();
+    @GetMapping("getAuth")
+    public ResponseEntity<String> auth() {
+        return ResponseEntity.ok(authClient.get("1111", "22222"));
     }
-
-    @GetMapping("/publishNotification")
-    public ResponseEntity publishNotification() {
-        eventPublisher.publishNotifyEvent("ENABLE", "ICCID1");
-        return ResponseEntity.ok().build();
-    }
-
 
 }

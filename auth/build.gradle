@@ -4,8 +4,8 @@ plugins {
     id 'java'
 }
 
-group = 'com.microservice'
-version = '0.0.1-SNAPSHOT'
+group 'com.microservice'
+version '1.0.0'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -17,10 +17,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //web启动器
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    //feign
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:2.1.2.RELEASE'
-    //熔断
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.1.6.RELEASE'
 
     //nacos服务发现
     //implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2.2.3.RELEASE'

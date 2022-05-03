@@ -4,4 +4,5 @@ include 'db'
 include 'saas'
 include 'core'
 include 'gateway'
+include 'auth'
 
