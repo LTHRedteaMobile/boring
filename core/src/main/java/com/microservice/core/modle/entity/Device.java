@@ -1,4 +1,4 @@
-package com.microservice.db.modle.entity;
+package com.microservice.core.modle.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

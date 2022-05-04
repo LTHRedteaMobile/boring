@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    gateway:
+      #路由配置
+      routes:
+        #到Core服务的路由配置
+        - id: service_core_route
+          uri: http://localhost:18084
+          predicates:
+            - Path=/core/**
+        #到auth服务的路由配置
+        - id: service_auth_route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/auth/**
+        #一个更改API路径的配置
+        - id: set_path_route
+          uri: http://localhost:18084
+          predicates:
+            - Path=/get
+          filters:
+            - SetPath=/core/api/v1/event/publishDownload
+
+      #跨域配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+
+
+

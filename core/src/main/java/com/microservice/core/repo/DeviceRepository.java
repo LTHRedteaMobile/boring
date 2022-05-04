@@ -1,8 +1,8 @@
-package com.microservice.db.repository;
+package com.microservice.core.repo;
 
+import com.microservice.core.modle.entity.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.microservice.db.modle.entity.Device;
 
 /**
  * @author Alex Liu

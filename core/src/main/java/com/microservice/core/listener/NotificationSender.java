@@ -1,7 +1,9 @@
 package com.microservice.core.listener;
 
 import com.microservice.core.event.NotifyEvent;
+import com.microservice.core.repo.DeviceRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
@@ -17,9 +19,12 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class NotificationSender {
 
+    @Autowired
+    private DeviceRepository deviceRepository;
+
     @PostConstruct
     private void init() {
-
+        log.info(deviceRepository.findAll().toString());
     }
 
     @EventListener(NotifyEvent.class)

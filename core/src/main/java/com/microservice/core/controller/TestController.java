@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021/03/24
  */
 @RestController
-@RequestMapping("/api/v1/core/test")
+@RequestMapping("core/api/v1/test")
 public class TestController {
 
     @Autowired
