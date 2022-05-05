@@ -13,10 +13,26 @@ repositories {
 }
 
 dependencies {
+    compile project(':db')
+
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //web启动器
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    //oauth2
+    implementation 'org.springframework.cloud:spring-cloud-starter-oauth2:2.1.5.RELEASE'
+    //security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    //JWT
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.21'
+
+    //数据库
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
+
+
 
     //nacos服务发现
     //implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2.2.3.RELEASE'
