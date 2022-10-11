@@ -30,6 +30,10 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
 
+    //rocketMQ
+    implementation 'org.apache.rocketmq:rocketmq-spring-boot-starter:2.0.4'
+
+
     //nacos服务发现
     //implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2.2.3.RELEASE'
     //nacos注册中心
